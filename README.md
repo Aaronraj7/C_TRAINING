@@ -1,2 +1,3 @@
-# lRIH
-largest rectangle in histogram
+# C_TRAINING
+
+hands on C.
