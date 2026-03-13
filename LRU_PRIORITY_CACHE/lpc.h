@@ -2,8 +2,6 @@
 #define LRU_PRIORITY_CACHE_H
 #define MAX_PRIORITY 10
 
-#include <stdio.h>
-
 typedef struct Node{
     int value;
     int key;
@@ -26,5 +24,6 @@ void move_to_head(LRU_PRIORITY_CACHE *obj, Node *node);
 LRU_PRIORITY_CACHE* create_cache(int capacity);
 void LRU_put(LRU_PRIORITY_CACHE* obj, int key, int value, int priority);
 int LRU_get(LRU_PRIORITY_CACHE* obj, int key);
+int free_lru(LRU_PRIORITY_CACHE* obj);
 
 #endif

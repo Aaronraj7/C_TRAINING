@@ -7,6 +7,7 @@ Node* createNode(int key, int value, int priority){
     newNode->value=value;
     newNode->priority=priority;
     newNode->next=newNode->prev=NULL;
+    newNode->next_hash=NULL;
     return newNode;
 }
 
@@ -106,4 +107,19 @@ int LRU_get(LRU_PRIORITY_CACHE* obj, int key){
     }
     return -1;
 
+}
+
+int free_lru(LRU_PRIORITY_CACHE* obj){
+    if(!obj) return -1;
+    for(int i=0;i<MAX_PRIORITY;i++){
+        Node* current = obj->head[i];
+        while(current){
+            Node* next=current->next;
+            free(current);
+            current=next;
+        }
+    }
+    if(obj->hash_table) free(obj->hash_table);
+    free(obj);
+    return 0;
 }
