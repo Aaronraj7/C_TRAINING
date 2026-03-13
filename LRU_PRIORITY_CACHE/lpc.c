@@ -1,4 +1,5 @@
 #include"lpc.h"
+#include<stdlib.h>
 
 Node* createNode(int key, int value, int priority){
     Node* newNode=(Node*)malloc(sizeof(Node));
@@ -38,12 +39,71 @@ LRU_PRIORITY_CACHE* create_cache(int capacity){
     obj->capacity=capacity;
     obj->count=0;
     for(int i=0;i<MAX_PRIORITY;i++){
-        obj->head[i]==NULL;
-        obj->tail[i]==NULL;
+        obj->head[i]=NULL;
+        obj->tail[i]=NULL;
     }
 
     obj->hash_size=capacity*2;
     obj->hash_table=(Node**)calloc(obj->hash_size,sizeof(Node*));
 
-    if(!obj->hash_table)    return NULL;   
+    if(!obj->hash_table){
+        free(obj);
+        return NULL;
+    } 
+    return obj;  
+}
+
+void LRU_put(LRU_PRIORITY_CACHE *obj, int key, int value, int priority){
+    int hash= key % obj->hash_size;
+    Node *node=obj->hash_table[hash];
+
+    while(node){
+        if(node && node->key==key){
+            detach_Node(obj,node);
+            node->value=value;
+            node->priority=priority;
+            move_to_head(obj,node);
+            return;
+        }
+        node=node->next_hash;
+    }
+    if(obj->count==obj->capacity){
+        for(int i=0;i<MAX_PRIORITY;i++){
+            if(obj->tail[i]){
+                
+                Node* lru=obj->tail[i];
+                int v_hash=lru->key%obj->hash_size;
+                Node **curr = &(obj->hash_table[v_hash]);
+                
+                while(*curr && *curr!=lru)  curr=&((*curr)->next_hash);
+                if(*curr)   *curr=lru->next_hash;
+                
+                detach_Node(obj,lru);
+                free(lru);
+                obj->count--;
+                break;
+            }
+        }
+    }
+        Node *newNode= createNode(key,value,priority);
+        newNode->next_hash=obj->hash_table[hash];
+        obj->hash_table[hash]=newNode;
+        move_to_head(obj,newNode);
+        obj->count++;
+}
+
+int LRU_get(LRU_PRIORITY_CACHE* obj, int key){
+    int hash=key%obj->hash_size;
+    Node* node=obj->hash_table[hash];
+
+    while(node){
+        if(node->key==key){
+            detach_Node(obj,node);
+            move_to_head(obj,node);
+            return node->value;
+        }
+        node=node->next_hash;
+    }
+    return -1;
+
 }
