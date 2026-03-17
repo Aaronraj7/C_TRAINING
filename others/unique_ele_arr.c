@@ -1,3 +1,4 @@
+//unique element in an array
 #include<stdio.h>
 
 int unique_element(int* arr, int n){

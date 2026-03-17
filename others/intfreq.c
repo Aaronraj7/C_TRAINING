@@ -1,3 +1,4 @@
+//frequency of an int in an arr
 #include<stdio.h>
 
 void intfreq(int *arr, int n){

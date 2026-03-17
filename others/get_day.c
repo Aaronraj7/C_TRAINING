@@ -1,3 +1,4 @@
+//get a random day in a year
 #include<stdio.h>
 
 int isleapyear(int year){

@@ -1,3 +1,4 @@
+//sim compartment management using doubly linked list
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct Comp{
