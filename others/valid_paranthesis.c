@@ -1,3 +1,4 @@
+//check valid paranthesis
 #include<stdio.h>
 #include<stdlib.h>
 //int stack[100];

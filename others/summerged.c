@@ -1,3 +1,4 @@
+//sum of middle elements of 2 list
 #include<stdio.h>
 
 int summerged(int* arr1, int* arr2, int n1, int n2){

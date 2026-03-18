@@ -1,3 +1,4 @@
+//use function ptr to simulate a calculator
 #include<stdio.h>
 
 double add(double a, double b){printf("ADDITION: ");return(a+b);}
