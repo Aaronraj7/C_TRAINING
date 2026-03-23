@@ -13,7 +13,7 @@ int oddDays[12]={3,0,3,2,3,2,3,3,2,3,2,3};
 if(isleapyear(year))	oddDays[1]=1;
 int  totaloddDays=0;
 for(int i=0;i<month-1;i++){
-totaloddDays=oddDays[i];
+totaloddDays+=oddDays[i];
 }
 totaloddDays+=(date-1);
 int targetindex=(firstday+totaloddDays)%7;
