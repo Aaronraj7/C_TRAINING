@@ -27,7 +27,6 @@ int summerged(int* arr1, int* arr2, int n1, int n2){
 int main(){
     int arr1[]={1,2};
     int arr2[]={4,5,6};
-    int res[6];
     int sum=summerged(arr1,arr2,sizeof(arr1)/sizeof(arr1[0]),sizeof(arr2)/sizeof(arr2[0]));
     printf("\n%d\n",sum);
 }
