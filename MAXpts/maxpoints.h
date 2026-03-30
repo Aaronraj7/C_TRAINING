@@ -1,2 +1,0 @@
-//max points on a line
-
